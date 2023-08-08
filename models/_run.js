@@ -11,10 +11,13 @@ const db = {};
 fs.readdirSync(__dirname)
     .filter((file) => file !== '_run.js')
     .forEach((file) => {
-        let model =require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes)
-        //객체의 값을 순회
-        // Object.values(models).forEach(model => db[model.name] = model)
-        db[model.name] = model;
+        try{
+            let model =require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes)
+            db[model.name] = model;
+        } catch(err){
+            console.log('Error File=>', file)
+            console.error('Error=>', err);
+        }
     }
 );
 

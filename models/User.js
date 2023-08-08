@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
             validate: {
                 customValidator(value) {
                     if (!/^[0-9a-zA-Z!@#$%^&*]{8,30}$/.test(value)) {
-                      throw new Error('Password must be 8 to 30 characters, containing only numbers, letters, and special characters.');
+                        throw new Error('Password must be 8 to 30 characters, containing only numbers, letters, and special characters.');
                     }
                 }
             }
@@ -49,12 +49,15 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             defaultValue: 3,
         }
+    },
+    {
+        tableName: 'User',
     });
 
     User.addHook('beforeCreate', async (user, options) => {
         const salt = await bcrypt.genSalt(10);
         user.Password = await bcrypt.hash(user.Password, salt);
-      });
+    });
     
     User.addHook('beforeUpdate', async (user, options) => {
     if (user.changed('Password')) {

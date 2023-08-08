@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
         Description: {
             type: DataTypes.TEXT
         }
+    },
+    {
+        tableName: 'Category',
     });
     return Category;
 }

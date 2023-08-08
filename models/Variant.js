@@ -20,12 +20,12 @@ module.exports = (sequelize, DataTypes) => {
     );
     Variant.associate = db => {
         Variant.belongsTo(db.VariantType, { foreignKey: 'TypeID' })
-        Variant.belongsToMany(db.Product, {
-            through: 'ProductVariant',
-            as: 'Product',
-            foreignKey: 'VariantID',
-            otherKey: 'ProductID'
-        });
+        // Variant.belongsToMany(db.Product, {
+        //     through: 'ProductVariant',
+        //     as: 'Product',
+        //     foreignKey: 'VariantID',
+        //     otherKey: 'ProductID'
+        // });
     };
 
     return Variant;

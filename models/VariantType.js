@@ -5,7 +5,16 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             autoIncrement: true
         },
-        Name: DataTypes.STRING // 'scent', 'size', 'color' 등의 유형
+        Name: {
+            type: DataTypes.STRING, // 'scent', 'size', 'color' 등의 유형
+            allowNull:false,
+        },
+        Kor: {
+            type: DataTypes.STRING
+        }
+    },
+    {
+        tableName: 'VariantType',
     });   
 
     return VariantType;

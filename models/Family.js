@@ -6,6 +6,9 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true
         },
         Name: DataTypes.STRING
+    },
+    {
+        tableName: 'Family',
     });
     return Family ;
 }
