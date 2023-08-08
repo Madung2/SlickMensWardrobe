@@ -1,53 +1,20 @@
-const {Variant,VariantType} = require('../models/_run.js');
+const {Variant,VariantType, Category} = require('../models/_run.js');
 // const VariantType = db.VariantType;
 // const Variant = db.Variant;
-
-exports.set_vartype = async (req, res) => {
+const createEntity = async (model, data, uniqueField, res) => {
     try {
-        const { Name } = req.body;
-        const existingName = await VariantType.findOne({ where: { Name } });
-        if (existingName) {
-            return res.status(400).json({ error: "Name already exists" });
+        const existing = await model.findOne({ where: { [uniqueField]: data[uniqueField] } });
+        if (existing) {
+            return res.status(400).json({ error: `${uniqueField} already exists` });
         }
-        //
-        const newVariantType = await VariantType.create({ Name });
-        res.status(201).json({newVariantType});
-
+        const newEntity = await model.create(data);
+        res.status(201).json({newEntity});
     }
     catch (err) {
         res.status(500).json({ error: err.message });
     }
 };
 
-
-exports.set_variant = async (req, res) => {
-    try {
-        const { TypeID, Value, ValueKor } = req.body;
-        const existingName = await Variant.findOne({ where: { Value } });
-        if (existingName) {
-            return res.status(400).json({ error: "Value already exists" });
-        }
-        const newVariant = await Variant.create({ TypeID, Value, ValueKor });
-        res.status(201).json({newVariant});
-    }
-    catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-};
-
-
-exports.set_category = async (req, res) => {
-    try {
-        const { Name, Description } = req.body;
-        check
-        const existingName = await Variant.findOne({ where: { Name } });
-        if (existingName) {
-            return res.status(400).json({ error: "Name already exists" });
-        }
-        const newVariant = await Variant.create({ TypeID, Value, ValueKor });
-        res.status(201).json({newVariant});
-    }
-    catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-};
+exports.set_vartype = (req, res) => createEntity(VariantType, req.body, 'Name', res);
+exports.set_variant = (req, res) => createEntity(Variant, req.body, 'Value', res);
+exports.set_category = (req, res) => createEntity(Category, req.body, 'Name', res);
