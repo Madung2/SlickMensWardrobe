@@ -1,4 +1,4 @@
-// const { DataTypes } = require('sequelize');
+const bcrypt = require('bcrypt'); // 비밀번호 암호화를 위한 bcryptjs 모듈 불러오기
 // const sequelize = require('../configs/database'); // config 폴더의 database.js 불러오기
 
 
@@ -19,14 +19,20 @@ module.exports = (sequelize, DataTypes) => {
         Email: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true
+            unique: true,
+            validate: {
+                isEmail: true // 이메일 형식만 허용
+            }
         },
         Password: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                is: /^[0-9a-zA-Z!@#$%^&*]{8,30}$/, // 8자에서 30자 사이의 숫자와 문자, 특수문자만 허용
-                msg: 'Password must be 8 to 30 characters, containing only numbers, letters, and special characters.'
+                customValidator(value) {
+                    if (!/^[0-9a-zA-Z!@#$%^&*]{8,30}$/.test(value)) {
+                      throw new Error('Password must be 8 to 30 characters, containing only numbers, letters, and special characters.');
+                    }
+                }
             }
         },
         Name: {
@@ -42,12 +48,21 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false,
             defaultValue: 3,
-            // references: {
-            //     model: Role,
-            //     key: 'RoleID'
-            // }
         }
     });
+
+    User.addHook('beforeCreate', async (user, options) => {
+        const salt = await bcrypt.genSalt(10);
+        user.Password = await bcrypt.hash(user.Password, salt);
+      });
+    
+    User.addHook('beforeUpdate', async (user, options) => {
+    if (user.changed('Password')) {
+        const salt = await bcrypt.genSalt(10);
+        user.Password = await bcrypt.hash(user.Password, salt);
+    }
+    });
+
     User.associate = db => {
         User.belongsTo(db.Role, {foreignKey: 'RoleID'});
     };

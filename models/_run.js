@@ -1,8 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const { Sequelize } = require('sequelize');
-const config = require('../configs/database');
-const sequelize = new Sequelize(config);
+const Sequelize = require('sequelize');
+const sequelize = require('../configs/database');
 const db = {};
 
 
@@ -18,7 +17,6 @@ fs.readdirSync(__dirname)
         db[model.name] = model;
     }
 );
-console.log('DB all=>', db);
 
 // db 객체에 있는 모델들의 associate 함수를 실행한다.
 Object.keys(db).forEach(modelName => {
@@ -27,7 +25,7 @@ Object.keys(db).forEach(modelName => {
     } 
 });
 
-
+console.log('DB all=>', db);
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

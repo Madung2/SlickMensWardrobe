@@ -13,9 +13,19 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         }
-    });
+    },
+    {
+        tableName: 'Variant',
+    }
+    );
     Variant.associate = db => {
         Variant.belongsTo(db.VariantType, { foreignKey: 'TypeID' })
+        Variant.belongsToMany(db.Product, {
+            through: 'ProductVariant',
+            as: 'Product',
+            foreignKey: 'VariantID',
+            otherKey: 'ProductID'
+        });
     };
 
     return Variant;
