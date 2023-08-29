@@ -1,5 +1,5 @@
 //product model
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize:any, DataTypes:any) => {
     const Product = sequelize.define('Product', {
         ProductID: {
             type: DataTypes.INTEGER,
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'Product',
     });
 
-    Product.associate = db => {
+    Product.associate = (db: { User: any; Category: any; Variant: any; }) => {
         Product.belongsTo(db.User, {foreignKey: 'UserID'});
         Product.belongsTo(db.Category, {foreignKey: 'CategoryID'});
         Product.belongsToMany(db.Variant, {

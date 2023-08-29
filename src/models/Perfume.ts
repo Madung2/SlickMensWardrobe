@@ -1,6 +1,6 @@
-module.exports = (sequelize, DataTypes) => {
-    const Category = sequelize.define('Category', {
-        CategoryID: {
+module.exports = (sequelize:any, DataTypes:any) => {
+    const Perfume = sequelize.define('Perfume', {
+        PerfumeID: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
@@ -9,12 +9,15 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
+        Contry: {
+            type: DataTypes.STRING
+        },
         Description: {
             type: DataTypes.TEXT
         }
     },
     {
-        tableName: 'Category',
+        tableName: 'Perfume',
     });
-    return Category;
+    return Perfume;
 }

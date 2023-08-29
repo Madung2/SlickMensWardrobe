@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize:any, DataTypes:any) => {
     const Note = sequelize.define('Note', {
         NoteID: {
             type: DataTypes.INTEGER,
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     {
         tableName: 'Note',
     });
-    Note.associate = (models) => {
+    Note.associate = (models:any) => {
         Note.belongsTo(models.Accord, {
             foreignKey: 'AccordID',
             onDelete: 'CASCADE'

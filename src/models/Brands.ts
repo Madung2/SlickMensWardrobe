@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize:any, DataTypes:any) => {
     const Brand = sequelize.define('Brand', {
         BrandID: {
             type: DataTypes.INTEGER,

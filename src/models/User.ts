@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt'); // 비밀번호 암호화를 위한 bcryptjs �
 // const sequelize = require('../configs/database'); // config 폴더의 database.js 불러오기
 
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize:any, DataTypes:any) => {
 
     
     const User = sequelize.define('User', {
@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                customValidator(value) {
+                customValidator(value:any) {
                     if (!/^[0-9a-zA-Z!@#$%^&*]{8,30}$/.test(value)) {
                         throw new Error('Password must be 8 to 30 characters, containing only numbers, letters, and special characters.');
                     }
@@ -54,19 +54,19 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'User',
     });
 
-    User.addHook('beforeCreate', async (user, options) => {
+    User.addHook('beforeCreate', async (user:any, options:any) => {
         const salt = await bcrypt.genSalt(10);
         user.Password = await bcrypt.hash(user.Password, salt);
     });
     
-    User.addHook('beforeUpdate', async (user, options) => {
+    User.addHook('beforeUpdate', async (user:any, options:any) => {
     if (user.changed('Password')) {
         const salt = await bcrypt.genSalt(10);
         user.Password = await bcrypt.hash(user.Password, salt);
     }
     });
 
-    User.associate = db => {
+    User.associate = (db: { Role: any; }) => {
         User.belongsTo(db.Role, {foreignKey: 'RoleID'});
     };
 

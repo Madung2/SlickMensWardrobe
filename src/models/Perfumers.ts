@@ -1,6 +1,6 @@
-module.exports = (sequelize, DataTypes) => {
-    const Accord = sequelize.define('Accord', {
-        AccordID: {
+module.exports = (sequelize:any, DataTypes:any) => {
+    const Perfumer = sequelize.define('Perfumer', {
+        PerfumerID: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        Kor: {
+        Contry: {
             type: DataTypes.STRING
         },
         Description: {
@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
         }
     },
     {
-        tableName: 'Accord',
+        tableName: 'Perfumer',
     });
-    return Accord;
+    return Perfumer;
 }

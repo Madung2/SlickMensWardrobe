@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize:any, DataTypes:any) => {
     const SubCategory  = sequelize.define('SubCategory', {
         SubCategoryID: {
             type: DataTypes.INTEGER,

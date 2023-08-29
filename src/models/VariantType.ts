@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize:any, DataTypes:any) => {
     const VariantType = sequelize.define('VariantType', {
         TypeID: {
             type: DataTypes.INTEGER,
