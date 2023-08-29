@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
         Permissions: {
         type: DataTypes.TEXT
         }
+    },
+    {
+        tableName: 'Role',
     });
     return Role;
 };

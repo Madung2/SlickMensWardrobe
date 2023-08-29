@@ -1,21 +1,23 @@
 module.exports = (sequelize, DataTypes) => {
-    const VariantType = sequelize.define('VariantType', {
-        TypeID: {
+    const Accord = sequelize.define('Accord', {
+        AccordID: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
         Name: {
-            type: DataTypes.STRING, // 'scent', 'size', 'color' 등의 유형
-            allowNull:false,
+            type: DataTypes.STRING,
+            allowNull: false
         },
         Kor: {
             type: DataTypes.STRING
+        },
+        Description: {
+            type: DataTypes.TEXT
         }
     },
     {
-        tableName: 'VariantType',
-    });   
-
-    return VariantType;
+        tableName: 'Accord',
+    });
+    return Accord;
 }

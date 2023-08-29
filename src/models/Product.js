@@ -15,6 +15,9 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false
         }
+    },
+    {
+        tableName: 'Product',
     });
 
     Product.associate = db => {

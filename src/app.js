@@ -7,7 +7,7 @@ const router = require('./routes/routes.js');
 
 
 //DB
-db.sequelize.sync({ force: false })
+db.sequelize.sync({ force: true })
   .then(() => console.log('DB 연결 성공!!'))
   .catch((err) => console.log('DB 연결 실패=> ' + err))
 
