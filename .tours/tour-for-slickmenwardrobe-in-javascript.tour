@@ -1,0 +1,11 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "tour for slickmenwardrobe in javascript",
+  "steps": [
+    {
+      "title": "models",
+      "description": "how the model is made"
+    }
+  ],
+  "ref": "main"
+}

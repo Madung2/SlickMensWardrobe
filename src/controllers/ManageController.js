@@ -1,9 +1,7 @@
 const { sequelize } = require('../configs/database.js');
 const Sequelize = require('sequelize');
-const {Variant,VariantType, Category, User, Role} = require('../models/_run.js');
+const {Variant,VariantType, Category, User, Role} = require('../../models/_run.js');
 
-// const VariantType = db.VariantType;
-// const Variant = db.Variant;
 const createEntity = async (model, data, uniqueField, res) => {
     console.log(VariantType, Variant, Category, User, Role);
     try {
